@@ -1,0 +1,15 @@
+#!/bin/bash
+
+function parse_git_branch {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+function custom_prompt {
+  local   BLUE="\[\033[0;34m\]"
+  local    RED="\[\033[0;31m\]"
+  local  GREEN="\[\033[0;32m\]"
+  local YELLOW="\[\033[0;33m\]"
+  local  WHITE="\[\033[0;37m\]"
+  local   CYAN="\[\033[0;36m\]"
+  PS1="$GREEN\u@\h $YELLOW\w $RED\$(parse_git_branch)\n$WHITE\$ "
+}
+custom_prompt
